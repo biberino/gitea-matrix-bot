@@ -1,7 +1,15 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"log"
+	"net/http"
+)
 
 func main() {
-	fmt.Println("INIT COMMIT")
+
+	conf := LoadConfiguration("conf.json")
+	fmt.Println("Started.")
+	http.HandleFunc("/webhook", handleWebhook)
+	log.Fatal(http.ListenAndServe(conf.Address, nil))
 }
